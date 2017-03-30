@@ -1,0 +1,19 @@
+{
+  "name": "algorithms-practice",
+  "version": "1.0.0",
+  "description": "A compendium of implementations of algorithms and data structures w/ test code",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjscollins/algorithms-practice.git"
+  },
+  "author": "Tyler Collins",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tjscollins/algorithms-practice/issues"
+  },
+  "homepage": "https://github.com/tjscollins/algorithms-practice#readme"
+}
