@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import sys
+import os
 import unittest
 import argparse
 import importlib
@@ -7,17 +8,17 @@ import importlib
 # Get module directore names:
 cwd = sys.path[0]
 
-data_structures_dir = cwd + '/../Data Structures'
-data_structures_test_dir = cwd + '/data-structures'
+data_structures_dir = cwd + '/Python/Data Structures'
+data_structures_test_dir = cwd + '/Python/Tests/data-structures'
 
-sorting_dir = cwd + '/../Sorthing'
-sorting_test_dir = cwd + '/sorthing-algos'
+sorting_dir = cwd + '/Python/Sorthing'
+sorting_test_dir = cwd + '/Python/Tests/sorthing-algos'
 
-dynamic_programming_dir = cwd + '/../Dynamic Programming'
-dynamic_programming_test_dir = cwd + '/dynamic-programming'
+dynamic_programming_dir = cwd + '/Python/Dynamic Programming'
+dynamic_programming_test_dir = cwd + '/Python/Tests/dynamic-programming'
 
-graphs_dir = cwd + '/../Graphs'
-graphs_test_dir = cwd + '/graphs'
+graphs_dir = cwd + '/Python/Graphs'
+graphs_test_dir = cwd + '/Python/Tests/graphs'
 
 # Extend sys.path to include module directories
 sys.path.extend([data_structures_dir, data_structures_test_dir, sorting_dir, sorting_test_dir,
