@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/tjscollins/algorithms-practice/issues"
   },
-  "homepage": "https://github.com/tjscollins/algorithms-practice#readme"
+  "homepage": "https://github.com/tjscollins/algorithms-practice#readme",
+  "devDependencies": {
+    "jasmine": "^2.5.3"
+  }
 }
