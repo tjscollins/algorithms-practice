@@ -1,4 +1,4 @@
-class Stack {
+/*class Stack {
   constructor(item) {
       this._stack = [];
       if(item) this._stack.push(item);
@@ -14,6 +14,15 @@ class Stack {
       console.log(item);
     }
   }
+}*/
+
+function Stack(item) {
+  this._stack = [];
+  if (item) this._stack.push(item);
+
+  this.push = (item) => this._stack.push(item);
+  this.pop = (item) => this._stack.pop(item);
+  this.list = () => console.log(...this._stack.reverse());
 }
 
 module.exports = Stack;
