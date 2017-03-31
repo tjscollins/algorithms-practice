@@ -28,14 +28,16 @@ function Stack(item) {
   this._stack = [];
   if (item)
     this._stack.push(item);
-
+  
   this.push = (item) => this
     ._stack
     .push(item);
   this.pop = (item) => this
     ._stack
     .pop(item);
-  this.list = () => this._stack.reduce((str, val) => `${val} ${str}`);
+  this.list = () => this
+    ._stack
+    .reduce((str, val) => `${val} ${str}`);
 
   this.top = () => this._stack[this._stack.length - 1];
 }
