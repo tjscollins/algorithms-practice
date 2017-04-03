@@ -1,15 +1,19 @@
 function LinkList() {
   this.head = null;
 
+  this.pop = function() {
+    let node = this.head;
+    this.head = node.next;
+    return node.data;
+  }
+
   this.insert = function (data) {
     if (this.head === null) {
       this.head = this._newNode(data);
     } else {
-      let node = this.head.next;
-      while (node.next !== null) {
-        node = node.next;
-      }
-      node.next = this._newNode(data);
+      let node = this.head;
+      this.head = this._newNode(data);
+      this.head.next = node;
     }
   };
 
@@ -31,4 +35,8 @@ function LinkList() {
       next: null,
     };
   };
+}
+
+module.exports = {
+  LinkList
 }
