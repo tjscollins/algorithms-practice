@@ -64,12 +64,14 @@ describe('BST class: ', () => {
         let key = Math.floor(Math.random() * 1000);
         bst.insert({key, data: ' '});
       }
-      bst.delete(bst.head.left.left.key);
-      bst.delete(bst.head.right.left.key);
-      bst.delete(bst.head.right.key);
-      bst.delete(bst.head.right.left.key);
+      bst.delete(pickNode(bst));
+      bst.delete(pickNode(bst));
+      bst.delete(pickNode(bst));
+      bst.delete(pickNode(bst));
       expect(hasBstProp(bst.head)).toBe(true);
       expect(bst.size).toBe(countBst(bst.head));
+      console.log(bst);
+
     }
   });
 
@@ -79,6 +81,16 @@ describe('BST class: ', () => {
 
 });
 
+function pickNode(bst) {
+  let node = bst.head;
+  let iter = Math.floor(Math.random()*Math.log(bst.size))
+  let next = Math.floor(Math.random()*2) > 1 ? 'left' : 'right';
+  while (node[next] != null && iter > 0) {
+    next = Math.floor(Math.random()*2) > 1 ? 'left' : 'right';
+    node = node[next]
+  }
+  return node !== null && node !== bst.head ? node.key : pickNode(bst);
+}
 function hasBstProp(node) {
   if (node == null) {
     return true;
