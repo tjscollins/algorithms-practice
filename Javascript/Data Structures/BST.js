@@ -45,68 +45,14 @@ class BST {
     }
     return node;
   }
-  delete(key) {
-    let node = this.search(key);
-    if (node.parent.left == node) {
-      if (node.left) {
-        node.left.parent = node.parent;
-        node.parent.left = node.left;
-        this._appendBst(node.left, node.right);
-      } else if (node.right) {
-        node.right.parent = node.parent;
-        node.parent.left = node.right;
-      } else {
-        node.parent.left = null;
-      }
-      this.size--;
-    } else if (node.parent.right == node) {
-      if (node.right) {
-        node.right.parent = node.parent;
-        node.parent.right = node.right;
-        this._appendBst(node.right, node.left);
-      } else if (node.left) {
-        node.left.parent = node.parent;
-        node.parent.right = node.left;
-      } else {
-        node.parent.right = null;
-      }
-      this.size--;
-    } else {
-      throw new Error('node not connected to parent!');
-    }
-
-  }
+  delete(key) {}
   traverse() {}
   prev(node) {}
-  next(node) {
-  }
+  next(node) {}
   _newNode(data, parent) {
     return {key: data.key, data: data.data, left: null, right: null, parent,};
   }
-  _appendBst(node, head) {
-    if (head == null) {
-      return;
-    }
-    let parent = node.parent;
-    while (node !== null) {
-      parent = node;
-      if (head.key < node.key) {
-        if (node.left == null) {
-          node.left = head;
-          node = null;
-        } else {
-          node = node.left;
-        }
-      } else {
-        if (node.right == null) {
-          node.right = head;
-          node = null;
-        } else {
-          node = node.right;
-        }
-      }
-    }
-  }
+  _appendBst(node, head) {}
 }
 
 module.exports = BST;
