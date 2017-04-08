@@ -8,12 +8,23 @@ describe('Heap class: ', () => {
     expect(heap._type).toBeDefined();
     expect(heap._size).toBeDefined();
 
-    // Methods
+    // Methods:
+    // Return top element of the heap
     expect(heap.top).toBeDefined();
+
+    // Insert new elements into heap
     expect(heap.insert).toBeDefined()
+
+    // Remove and return top element from heap
     expect(heap.extract).toBeDefined();
+
+    // Replace top element with new element
     expect(heap.replaceTop).toBeDefined();
+
+    // Private method to build heap from array
     expect(heap._buildHeap).toBeDefined();
+
+    // Private method to fix single violation of heap property
     expect(heap._fixHeapProp).toBeDefined();
   });
 
@@ -48,29 +59,154 @@ describe('Heap class: ', () => {
   });
 
   it('should create a heap of the correct type from an array', () => {
-    let heap = new Heap([1,2,3,4,5,6,7,8]);
+    let heap = new Heap([
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]);
     expect(heap._data[0]).toBe(8);
-    heap = new Heap([-1,-2,-3,0,9,8,7,6,5,4,3,2,1], 'min');
+    heap = new Heap([
+      -1,
+      -2,
+      -3,
+      0,
+      9,
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      1
+    ], 'min');
     expect(heap._data[0]).toBe(-3);
   });
 
   it('should extract the top of the heap and then fix the heap', () => {
-    let heap = new Heap([0,-2,-3,-1,-4,-5,-6,9,8,7,6,5,4,3,2,1])
+    let heap = new Heap([
+      0,
+      -2,
+      -3,
+      -1,
+      -4,
+      -5,
+      -6,
+      9,
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      1
+    ])
     expect(heap.extract()).toBe(9);
     expect(heap._data[0]).toBe(8);
     expect(heap._data[1] < heap._data[0]).toBe(true);
   });
 
   it('should replace the element at the top of the heap and then fix the heap', () => {
-    let heap = new Heap([0,-2,-3,-1,-4,-5,-6,9,8,7,6,5,4,3,2,1])
+    let heap = new Heap([
+      0,
+      -2,
+      -3,
+      -1,
+      -4,
+      -5,
+      -6,
+      9,
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      1
+    ])
     expect(heap.replaceTop(-100)).toBe(9);
     expect(heap._data[0]).toBe(8);
   });
 
   it('should implement heapsort on an array', () => {
-    let heap = new Heap([0,-2,-3,-1,-4,-5,-6,9,8,7,6,5,4,3,2,1])
-    expect(heap.sort()).toEqual([0,-2,-3,-1,-4,-5,-6,9,8,7,6,5,4,3,2,1].sort((a,b) => a-b));
-    heap = new Heap([1, -3, 2, -5, 4, -6, 7, -9, 8, -10, 11, 12, -1, 2, -10, 10])
-    expect(heap.sort()).toEqual([1, -3, 2, -5, 4, -6, 7, -9, 8, -10, 11, 12, -1, 2, -10, 10].sort((a,b) => a-b));
+    let heap = new Heap([
+      0,
+      -2,
+      -3,
+      -1,
+      -4,
+      -5,
+      -6,
+      9,
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      1
+    ])
+    expect(heap.sort()).toEqual([
+      0,
+      -2,
+      -3,
+      -1,
+      -4,
+      -5,
+      -6,
+      9,
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      1
+    ].sort((a, b) => a - b));
+    heap = new Heap([
+      1,
+      -3,
+      2,
+      -5,
+      4,
+      -6,
+      7,
+      -9,
+      8,
+      -10,
+      11,
+      12,
+      -1,
+      2,
+      -10,
+      10
+    ])
+    expect(heap.sort()).toEqual([
+      1,
+      -3,
+      2,
+      -5,
+      4,
+      -6,
+      7,
+      -9,
+      8,
+      -10,
+      11,
+      12,
+      -1,
+      2,
+      -10,
+      10
+    ].sort((a, b) => a - b));
   });
 });
