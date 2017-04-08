@@ -8,8 +8,7 @@ class Heap {
     }
   }
   insert(data) {
-    this._data.push(data);
-    this._size++;
+    this._data[this._size++] = data;
     this._buildHeap();
     return this;
   }
@@ -17,7 +16,7 @@ class Heap {
     [this._data[0], this._data[this._size-1]] = [this._data[this._size-1], this._data[0]];
     let value = this._data.pop();
     this._size--;
-    this._buildHeap();
+    this._fixHeapProp(0);
     return value;
   }
   top() {
@@ -25,16 +24,16 @@ class Heap {
   }
   replaceTop(data) {
     [data, this._data[0]] = [this._data[0], data];
-    this._buildHeap();
+    this._fixHeapProp(0);
     return data;
   }
   sort() {
-    let arr = [];
-    let length = this._size;
-    while (arr.length < length) {
-      arr.push(this.extract());
+    while (this._size > 0) {
+      [this._data[0], this._data[this._size-1]] = [this._data[this._size-1], this._data[0]];
+      this._size--;
+      this._fixHeapProp(0);
     }
-    return arr;
+    return this._data;
   }
 
   _buildHeap() {
@@ -43,15 +42,19 @@ class Heap {
     }
   }
   _fixHeapProp(index) {
-    const {_data, _type} = this;
+    const {_data, _type, _size} = this;
     let largest = index;
     let left = 2*index + 1;
     let right = 2*index + 2;
 
-    if(_data[left] > _data[largest] && _type == 'max' || _type=='min' && _data[left] < _data[largest]) {
+    if(left < _size
+      && (_data[left] > _data[largest] && _type == 'max'
+      || _type=='min' && _data[left] < _data[largest])) {
       largest = left;
     }
-    if(_data[right] > _data[largest] && _type == 'max' || _type=='min' && _data[right] < _data[largest]) {
+    if(right < _size
+      && (_data[right] > _data[largest] && _type == 'max'
+      || _type=='min' && _data[right] < _data[largest])) {
       largest = right;
     }
     if (largest !== index) {

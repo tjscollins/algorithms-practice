@@ -68,9 +68,9 @@ describe('Heap class: ', () => {
   });
 
   it('should implement heapsort on an array', () => {
-    let heap = new Heap([0,-2,-3,-1,-4,-5,-6,9,8,7,6,5,4,3,2,1], 'min')
+    let heap = new Heap([0,-2,-3,-1,-4,-5,-6,9,8,7,6,5,4,3,2,1])
     expect(heap.sort()).toEqual([0,-2,-3,-1,-4,-5,-6,9,8,7,6,5,4,3,2,1].sort((a,b) => a-b));
-    heap = new Heap([1, -3, 2, -5, 4, -6, 7, -9, 8, -10, 11, 12, -1, 2, -10, 10], 'min')
+    heap = new Heap([1, -3, 2, -5, 4, -6, 7, -9, 8, -10, 11, 12, -1, 2, -10, 10])
     expect(heap.sort()).toEqual([1, -3, 2, -5, 4, -6, 7, -9, 8, -10, 11, 12, -1, 2, -10, 10].sort((a,b) => a-b));
   });
 });
