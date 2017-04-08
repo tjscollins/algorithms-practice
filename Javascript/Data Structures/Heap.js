@@ -1,49 +1,63 @@
-function Heap(input = [], type='max') {
-  this.top = () => this._data[0];
-
-  this.insert = (item) => {
-    this._data.push(item);
-    this._fixHeapProp(this._data.length-1);
-    return this;
-  }
-
-  this._fixHeapProp = (index) => {
-    const {_data} = this;
-    parent = Math.floor((index-1)/2);
-    if(parent >= 0) {
-      let largest = parent;
-      let children = [2*parent + 1, 2*parent + 2];
-      if ( _data[children[0]] > _data[largest] && type=='max' || type=='min' && _data[children[0]] < _data[largest] ) {
-        largest = children[0];
-      }
-      if (_data[children[1]] > _data[largest] && type=='max' || type=='min' && _data[children[1]] < _data[largest] ) {
-        largest = children[1];
-      }
-      if (largest !== parent) {
-        [_data[parent], _data[largest]] = [_data[largest], _data[parent]];
-        this._fixHeapProp(parent);
-        this._fixHeapProp(largest*2+1);
-      }
+class Heap {
+  constructor(data = [], type = 'max') {
+    this._data = data;
+    this._type = type;
+    this._size = this._data.length;
+    if (this._data.length > 0) {
+      this._buildHeap();
     }
   }
-  this.extract = () => {
-    const {_data} = this;
-    [_data[0], _data[_data.length-1]] = [_data[_data.length-1], _data[0]];
-    const output = _data.pop();
-    this._fixHeapProp(1);
-    return output;
+  insert(data) {
+    this._data.push(data);
+    this._size++;
+    this._buildHeap();
+    return this;
+  }
+  extract() {
+    [this._data[0], this._data[this._size-1]] = [this._data[this._size-1], this._data[0]];
+    let value = this._data.pop();
+    this._size--;
+    this._buildHeap();
+    return value;
+  }
+  top() {
+    return this._data[0];
+  }
+  replaceTop(data) {
+    [data, this._data[0]] = [this._data[0], data];
+    this._buildHeap();
+    return data;
+  }
+  sort() {
+    let arr = [];
+    let length = this._size;
+    while (arr.length < length) {
+      arr.push(this.extract());
+    }
+    return arr;
   }
 
-  this.replaceTop = (item) => {
-    top = this._data[0];
-    this._data[0] = item;
-    this._fixHeapProp(1);
-    return top;
+  _buildHeap() {
+    for (let i = Math.floor(this._size - 1 / 2); i >= 0; --i) {
+      this._fixHeapProp(i);
+    }
   }
+  _fixHeapProp(index) {
+    const {_data, _type} = this;
+    let largest = index;
+    let left = 2*index + 1;
+    let right = 2*index + 2;
 
-  this._data = [];
-  if(input.length > 0) {
-    input.forEach((value) => this.insert(value));
+    if(_data[left] > _data[largest] && _type == 'max' || _type=='min' && _data[left] < _data[largest]) {
+      largest = left;
+    }
+    if(_data[right] > _data[largest] && _type == 'max' || _type=='min' && _data[right] < _data[largest]) {
+      largest = right;
+    }
+    if (largest !== index) {
+      [_data[index], _data[largest]] = [_data[largest], _data[index]];
+      this._fixHeapProp(largest);
+    }
   }
 }
 
