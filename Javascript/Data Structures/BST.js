@@ -77,8 +77,9 @@ class BST {
 
   }
   traverse() {}
-  prev() {}
-  next() {}
+  prev(node) {}
+  next(node) {
+  }
   _newNode(data, parent) {
     return {key: data.key, data: data.data, left: null, right: null, parent,};
   }
