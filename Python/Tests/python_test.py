@@ -8,17 +8,17 @@ import importlib
 # Get module directore names:
 cwd = sys.path[0]
 
-data_structures_dir = cwd + '/Python/Data Structures'
-data_structures_test_dir = cwd + '/Python/Tests/data-structures'
+data_structures_dir = cwd + '/../Data Structures'
+data_structures_test_dir = cwd + '/../Tests/data-structures'
 
-sorting_dir = cwd + '/Python/Sorthing'
-sorting_test_dir = cwd + '/Python/Tests/sorthing-algos'
+sorting_dir = cwd + '/../Sorting'
+sorting_test_dir = cwd + '/../Tests/sorting-algos'
 
-dynamic_programming_dir = cwd + '/Python/Dynamic Programming'
-dynamic_programming_test_dir = cwd + '/Python/Tests/dynamic-programming'
+dynamic_programming_dir = cwd + '/../Dynamic Programming'
+dynamic_programming_test_dir = cwd + '/../Tests/dynamic-programming'
 
-graphs_dir = cwd + '/Python/Graphs'
-graphs_test_dir = cwd + '/Python/Tests/graphs'
+graphs_dir = cwd + '/../Graphs'
+graphs_test_dir = cwd + '/../Tests/graphs'
 
 # Extend sys.path to include module directories
 sys.path.extend([data_structures_dir, data_structures_test_dir, sorting_dir, sorting_test_dir,
