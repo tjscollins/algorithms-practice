@@ -6,8 +6,8 @@ def merge_sort(A):
 
     if(len(A) == 1):
         return A
-    left = A[:len(A)/2]
-    right = A[len(A)/2:]
+    left = A[:len(A)//2]
+    right = A[len(A)//2:]
 
     left = merge_sort(left)
     right = merge_sort(right)

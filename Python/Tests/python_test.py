@@ -61,7 +61,7 @@ def runGroupTest(group):
     if group == 'data-structures':
         [runTest(test) for test in ['stack', 'linked-list', 'heap', 'bst', 'avl', 'hash-table']]
     elif group == 'sorting':
-        return
+        [runTest(test) for test in ['bubble', 'insertion', 'selection', 'heap-sort', 'merge', 'quick', 'counting', 'radix']]    
     elif group == 'graphs':
         return
     elif group == 'dynamic-programming':

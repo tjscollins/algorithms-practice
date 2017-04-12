@@ -1,4 +1,4 @@
-def select_sort(A):
+def selection_sort(A):
     for i in range(len(A)):
         m = i
         for j in range(i, len(A)):
