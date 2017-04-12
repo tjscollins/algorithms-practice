@@ -1,7 +1,7 @@
 from bst import BSTNode, BST
 
-class AVLNode(BSTNode):
 
+class AVLNode(BSTNode):
     def __init__(self, key, data):
         self.key = key
         self.data = data
@@ -9,206 +9,83 @@ class AVLNode(BSTNode):
         self.right = None
         self.parent = None
         self.height = 0
+        self.left_height = -1
+        self.right_height = -1
 
     def isRH(self):
-        if self.left is not None:
-            leftHeight = self.left.height
-        else:
-            leftHeight = -1
-        if self.right is not None:
-            rightHeight = self.right.height
-        else:
-            rightHeight = -1
-        if leftHeight < rightHeight:
-            return True
-        else:
-            return False
+        return self.right_height > self.left_height
 
     def isLH(self):
-        if self.left is not None:
-            leftHeight = self.left.height
-        else:
-            leftHeight = -1
-        if self.right is not None:
-            rightHeight = self.right.height
-        else:
-            rightHeight = -1
-        if leftHeight > rightHeight:
-            return True
-        else:
-            return False
+        return self.right_height < self.left_height
+
+    def isBal(self):
+        return self.left_height == self.right_height
 
     def setHeight(self):
-        if self.left is not None:
-            lHeight = self.left.height
+        if self.left is None:
+            self.left_height = -1
         else:
-            lHeight = -1
-        if self.right is not None:
-            rHeight = self.right.height
+            self.left_height = self.left.height
+        if self.right is None:
+            self.right_height = -1
         else:
-            rHeight = -1
-        self.height = max(lHeight, rHeight) + 1
-        # print('Set height of node', self.key, self.height)
-        if self.parent is not None:
-            self.parent.setHeight()
+            self.right_height = self.right.height
 
-    def balanced(self):
-        if self.left is not None:
-            leftHeight = self.left.height
-        else:
-            leftHeight = -1
-        if self.right is not None:
-            rightHeight = self.right.height
-        else:
-            rightHeight = -1
-        if abs(leftHeight - rightHeight) > 1:
-            return False
-        else:
-            return True
+        self.height = max(self.left_height, self.right_height) + 1
+
 
 
 class AVL(BST):
+    def __init__(self):
+        self.root = None
+        self.size = 0
 
     def insert(self, key, data):
-        self.size += 1
         if self.root is None:
             self.root = AVLNode(key, data)
+            self.size = 1
         else:
-            thisNode = self.root
-            while thisNode is not None:
-                if thisNode.key < key:
-                    if thisNode.right is None:
-                        thisNode.right = AVLNode(key, data)
-                        thisNode.right.parent = thisNode
-                        thisNode.setHeight()
-                        self.fix_avl(thisNode)
-                        thisNode = None
+            node = self.root
+            while node is not None:
+                if key < node.key:
+                    if node.left is not None:
+                        node = node.left
                     else:
-                        thisNode = thisNode.right
-                elif thisNode.key > key:
-                    if thisNode.left is None:
-                        thisNode.left = AVLNode(key, data)
-                        thisNode.left.parent = thisNode
-                        thisNode.setHeight()
-                        self.fix_avl(thisNode)
-                        thisNode = None
+                        node.left = AVLNode(key, data)
+                        node.left.parent = node
+                        node.setHeight()
+                        self.size += 1
+                        if node.parent is not None and node.parent.parent is not None:
+                            self.fix_avl(node.parent.parent)
+                        node = None
+                elif key > node.key:
+                    if node.right is not None:
+                        node = node.right
                     else:
-                        thisNode = thisNode.left
-                else:
-                    # Duplicate key, skip insertion
-                    thisNode = None
+                        node.right = AVLNode(key, data)
+                        node.right.parent = node
+                        node.setHeight()
+                        self.size += 1
+                        if node.parent is not None and node.parent.parent is not None:
+                            self.fix_avl(node.parent.parent)
+                        node = None
+
+
+
+    def search(self, key):
+        pass
+
+    def traverse_inorder(self):
+        pass
+
+    def delete(self, key):
+        pass
 
     def fix_avl(self, node):
-        parent = node.parent
-        if node.isRH() and not node.balanced():
-            if node.right is not None and node.right.isLH():
-                self.rRotate(node.right)
-                self.lRotate(node)
-            else:
-                self.lRotate(node)
-        elif node.isLH() and not node.balanced():
-            if node.left is not None and node.left.isRH():
-                self.lRotate(node.left)
-                self.rRotate(node)
-            else:
-                self.rRotate(node)
-        if parent is not None:
-            self.fix_avl(parent)
-            return
+        return
 
     def rRotate(self, node):
-        L = node.left
-        R = L.right
-        P = node.parent
-        if P is None:
-            if R is None:
-                L.right = node
-                node.left = None
-                node.parent = L
-                self.root = L
-                L.parent = None
-            else:
-                node.left = R
-                R.parent = node
-                L.right = node
-                node.parent = L
-                self.root = L
-                L.parent = None
-        elif P.right is node:
-            if R is None:
-                L.right = node
-                node.left = None
-                node.parent = L
-                L.parent = P
-                P.right = L
-            else:
-                node.left = R
-                R.parent = node
-                L.right = node
-                node.parent = L
-                L.parent = P
-                P.right = L
-        elif P.left is node:
-            if R is None:
-                L.right = node
-                node.left = None
-                node.parent = L
-                L.parent = P
-                P.left = L
-            else:
-                node.right = R
-                R.parent = node
-                L.right = node
-                node.parent = L
-                L.parent = P
-                P.left = L
-        node.setHeight()
+        pass
 
     def lRotate(self, node):
-        R = node.right
-        L = R.left
-        P = node.parent
-        if P is None:
-            if L is None:
-                R.left = node
-                node.right = None
-                node.parent = R
-                R.parent = None
-                self.root = R
-            else:
-                node.right = L
-                L.parent = node
-                node.right = L
-                R.left = node
-                node.parent = R
-                R.parent = None
-                self.root = R
-        elif P.left is node:
-            if L is None:
-                R.left = node
-                node.right = None
-                node.parent = R
-                R.parent = P
-                P.left = R
-            else:
-                node.right = L
-                L.parent = node
-                R.left = node
-                node.parent = R
-                R.parent = P
-                P.left = R
-        elif P.right is node:
-            if L is None:
-                R.left = node
-                node.right = None
-                node.parent = R
-                R.parent = P
-                P.right = R
-            else:
-                node.right = L
-                L.parent = node
-                R.left = node
-                node.parent = R
-                R.parent = P
-                P.right = R
-        node.setHeight()
+        pass
