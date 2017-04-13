@@ -19,7 +19,7 @@ class AVLNode(BSTNode):
         return self.right_height < self.left_height
 
     def isBal(self):
-        return self.left_height == self.right_height
+        return abs(self.left_height - self.right_height) <= 1
 
     def setHeight(self):
         if self.left is None:
@@ -32,6 +32,8 @@ class AVLNode(BSTNode):
             self.right_height = self.right.height
 
         self.height = max(self.left_height, self.right_height) + 1
+        if self.parent is not None:
+            self.parent.setHeight()
 
 
 
@@ -55,8 +57,7 @@ class AVL(BST):
                         node.left.parent = node
                         node.setHeight()
                         self.size += 1
-                        if node.parent is not None and node.parent.parent is not None:
-                            self.fix_avl(node.parent.parent)
+                        self.fix_avl(node)
                         node = None
                 elif key > node.key:
                     if node.right is not None:
@@ -66,26 +67,93 @@ class AVL(BST):
                         node.right.parent = node
                         node.setHeight()
                         self.size += 1
-                        if node.parent is not None and node.parent.parent is not None:
-                            self.fix_avl(node.parent.parent)
+                        self.fix_avl(node)
                         node = None
+        # print('Node count: ', count_bst_nodes(self.root), self.size);
 
 
+    # def search(self, key):
+    #     pass
 
-    def search(self, key):
-        pass
-
-    def traverse_inorder(self):
-        pass
+    # def traverse_inorder(self):
+    #     pass
 
     def delete(self, key):
         pass
 
     def fix_avl(self, node):
-        return
+        if node is None:
+            return
+        elif node.isBal():
+            self.fix_avl(node.parent)
+            return
 
-    def rRotate(self, node):
-        pass
+        parent = node.parent
+        if node.isRH():
+            if node.right.isLH():
+                self.__right_rotate__(node.right)
+                self.__left_rotate__(node)
+            else:
+                self.__left_rotate__(node)
+        else:
+            if node.left.isRH():
+                self.__left_rotate__(node.left)
+                self.__right_rotate__(node)
+            else:
+                self.__right_rotate__(node)
 
-    def lRotate(self, node):
-        pass
+        if parent is not None:
+            self.fix_avl(parent)
+
+    def __right_rotate__(self, node):
+        x = node
+        y = node.left
+
+        b = y.right
+
+        y.right = x
+        if x.parent is None:
+            y.parent = None
+            self.root = y
+        else:
+            y.parent = x.parent
+            if x is x.parent.right:
+                y.parent.right = y
+            else:
+                y.parent.left = y
+        x.parent = y
+
+        x.left = b
+        if b is not None:
+            b.parent = x
+
+        x.setHeight()
+        y.setHeight()
+
+    def __left_rotate__(self, node):
+        x = node
+        y = node.right
+
+        b = y.left
+
+        y.left = x
+        if x.parent is None:
+            y.parent = None
+            self.root = y
+        else:
+            y.parent = x.parent
+            if x is x.parent.right:
+                y.parent.right = y
+            else:
+                y.parent.left = y
+        x.parent = y
+
+        x.right = b
+        if b is not None:
+            b.parent = x
+
+        x.setHeight()
+        y.setHeight()
+
+def count_bst_nodes(root):
+    return 0 if root is None else 1 + count_bst_nodes(root.left) + count_bst_nodes(root.right)
