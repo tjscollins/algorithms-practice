@@ -1,7 +1,7 @@
 const BST = require('../Data Structures/BST');
 
-describe('BST class: \n\t', () => {
-  describe('BST constructor: \n\t', () => {
+describe('BST class: ', () => {
+  describe('BST constructor:', () => {
     it('should return a new BST object', () => {
       const bst = new BST();
 
@@ -33,7 +33,7 @@ describe('BST class: \n\t', () => {
     });
   });
 
-  describe('BST.prototype.insert: \n\t', () => {
+  describe('BST.prototype.insert: ', () => {
       it('should maintain BST property after an arbitrary number of inserts', () => {
         for (let j = 0; j < 100; ++j) {
           let bst = new BST();
@@ -74,7 +74,7 @@ describe('BST class: \n\t', () => {
       });
   });
 
-  describe('BST.prototype.search: \n\t', () => {
+  describe('BST.prototype.search: ', () => {
       it('should search for and return a node if it exists', () => {
         const bst = new BST();
         for (let i = 0; i < 1000; ++i) {
@@ -106,27 +106,27 @@ describe('BST class: \n\t', () => {
       });
   });
 
-  describe('BST.prototype.delete: \n\t', () => {
+  describe('BST.prototype.delete: ', () => {
       it('should delete a node from the tree', () => {
-        const bst = new BST();
-        for (let i = 0; i < 1000; ++i) {
-          let key = Math.floor(Math.random() * 10000);
-          if (key !== 123 && key !== 321 && key !== 234) {
-            bst.insert({key, data: ' '});
+          const bst = new BST();
+          for (let i = 0; i < 100; ++i) {
+            let key = Math.floor(Math.random() * 10000);
+            if (key !== 123 && key !== 321 && key !== 234) {
+              bst.insert({key, data: ' '});
+            }
           }
-        }
-        bst.insert({key: 123, data: 'a'});
-        bst.insert({key: 321, data: 'b'});
-        bst.insert({key: 234, data: 'c'});
-        expect(bst.search(123).data).toBe('a');
-        expect(bst.search(321).data).toBe('b');
-        expect(bst.search(234).data).toBe('c');
-        bst.delete(123);
-        expect(bst.search(123)).toBe(null);
-        bst.delete(321);
-        expect(bst.search(321)).toBe(null);
-        bst.delete(234);
-        expect(bst.search(234)).toBe(null);
+          bst.insert({key: 123, data: 'a'});
+          bst.insert({key: 321, data: 'b'});
+          bst.insert({key: 234, data: 'c'});
+          expect(bst.search(123).data).toBe('a');
+          expect(bst.search(321).data).toBe('b');
+          expect(bst.search(234).data).toBe('c');
+          bst.delete(123);
+          expect(bst.search(123)).toBe(null);
+          bst.delete(321);
+          expect(bst.search(321)).toBe(null);
+          bst.delete(234);
+          expect(bst.search(234)).toBe(null);
       });
 
       it('should maintain BST property after deletions', () => {
@@ -146,7 +146,7 @@ describe('BST class: \n\t', () => {
       });
   });
 
-  describe('BST.prototype.traverse: \n\t', () => {
+  describe('BST.prototype.traverse: ', () => {
     it('should return a sorted array of all the nodes', () => {
         let bst = new BST();
         bst.insert({key: 5, data: 5});
@@ -164,7 +164,7 @@ describe('BST class: \n\t', () => {
     });
   });
 
-  describe('BST.prototype private methods: \n\t', () => {
+  describe('BST.prototype private methods: ', () => {
     it('should find the predecessor of an arbitrary node', () => {
       let bst = new BST();
       bst.insert({key: 5, data: 5});
