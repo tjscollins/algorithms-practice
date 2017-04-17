@@ -26,7 +26,7 @@ class BST {
           } else {
             node = node.left;
           }
-        } else {
+        } else if(data.key > key) {
           if(node.right === null) {
             node.right = _newNode(data, node);
             this._size++;
@@ -34,6 +34,8 @@ class BST {
           } else {
             node = node.right;
           }
+        } else {
+          // ignore duplicate keys
         }
       }
     }

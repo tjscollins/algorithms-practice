@@ -45,7 +45,7 @@ describe('BST class: ', () => {
           }
           expect(bst._size).toBe(100);
           expect(bst._head).not.toBe(null);
-          expect(hasBstProp(bst.head)).toBe(true);
+          expect(hasBstProp(bst._head)).toBe(true);
         }
       });
 
