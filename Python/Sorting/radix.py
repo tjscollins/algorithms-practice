@@ -1,5 +1,5 @@
 import math
-execfile('Sorting/counting-sort/csort.py')
+from csort import csort_radix
 
 def radix_int_sort(A, digits):
     for d in range(digits):
