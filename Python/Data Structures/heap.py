@@ -7,16 +7,14 @@ class Heap:
         self.array = array
         self.size = len(array)
         self.type = direction
-        if direction is 'max':
-            self.makeMaxHeap()
-        elif direction is 'min':
-            self.makeMinHeap()
-        # else:
-            # Error
-
-    def makeMaxHeap(self):
-        for i in range(int(math.floor(math.log(self.size, 2))), -1, -1):
-            self.maxHeapify(i)
+        self.makeHeap()
+        
+    def makeHeap(self):
+        for i in range(self.size // 2, -1, -1):
+            if self.type == 'max':
+                self.maxHeapify(i)
+            elif self.type == 'min':
+                self.minHeapify(i)
 
     def maxHeapify(self, i):
         large = i
@@ -28,9 +26,6 @@ class Heap:
             self.array[large], self.array[i] = self.array[i], self.array[large]
             self.maxHeapify(large)
 
-    def makeMinHeap(self):
-        for i in range(int(math.floor(math.log(self.size, 2))), -1, -1):
-            self.minHeapify(i)
 
     def minHeapify(self, i):
         small = i
