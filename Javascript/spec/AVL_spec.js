@@ -40,7 +40,7 @@ describe('AVL class: ', () => {
     });
   });
 
-  describe('AVL.prototype.insert: ', () => {
+  describe('AVL.prototype.insert(key, data): ', () => {
       it('should maintain AVL property after an arbitrary number of random inserts', () => {
         for (let j = 0; j < 50; ++j) {
           let bst = new AVL();
@@ -60,7 +60,7 @@ describe('AVL class: ', () => {
       });
 
       it('should throw an error if the argument lacks a key value', () => {
-        const bst = new BST();
+        const bst = new AVL();
         let errorThrown = false;
         try {
           bst.insert({data: 123});
@@ -72,7 +72,7 @@ describe('AVL class: ', () => {
       });
 
       it('should throw an error if the argument lacks a data value', () => {
-        const bst = new BST();
+        const bst = new AVL();
         let errorThrown = false;
         try {
           bst.insert({key: 123});
@@ -84,77 +84,78 @@ describe('AVL class: ', () => {
       });
   });
 
-  // describe('BST.prototype.search: ', () => {
-  //     it('should search for and return a node if it exists', () => {
-  //       const bst = new BST();
-  //       for (let i = 0; i < 1000; ++i) {
-  //         let key = Math.floor(Math.random() * 1000);
-  //         if (key !== 123 && key !== 321 && key !== 234) {
-  //           bst.insert({key, data: ' '});
-  //         }
-  //       }
-  //       bst.insert({key: 123, data: 'a'});
-  //       bst.insert({key: 321, data: 'b'});
-  //       bst.insert({key: 234, data: 'c'});
-  //
-  //       expect(bst.search(123).data).toBe('a');
-  //       expect(bst.search(321).data).toBe('b');
-  //       expect(bst.search(234).data).toBe('c');
-  //     });
-  //
-  //     it('should return null if the target node does not exist', () => {
-  //       const bst = new BST();
-  //       for (let i = 0; i < 1000; ++i) {
-  //         let key = Math.floor(Math.random() * 1000);
-  //         if (key !== 123 && key !== 321 && key !== 234) {
-  //           bst.insert({key, data: ' '});
-  //         }
-  //       }
-  //       expect(bst.search(123)).toBe(null);
-  //       expect(bst.search(321)).toBe(null);
-  //       expect(bst.search(234)).toBe(null);
-  //     });
-  // });
-  //
-  // describe('BST.prototype.delete: ', () => {
-  //     it('should delete a node from the tree', () => {
-  //         const bst = new BST();
-  //         for (let i = 0; i < 100; ++i) {
-  //           let key = Math.floor(Math.random() * 10000);
-  //           if (key !== 123 && key !== 321 && key !== 234) {
-  //             bst.insert({key, data: ' '});
-  //           }
-  //         }
-  //         bst.insert({key: 123, data: 'a'});
-  //         bst.insert({key: 321, data: 'b'});
-  //         bst.insert({key: 234, data: 'c'});
-  //         expect(bst.search(123).data).toBe('a');
-  //         expect(bst.search(321).data).toBe('b');
-  //         expect(bst.search(234).data).toBe('c');
-  //         bst.delete(123);
-  //         expect(bst.search(123)).toBe(null);
-  //         bst.delete(321);
-  //         expect(bst.search(321)).toBe(null);
-  //         bst.delete(234);
-  //         expect(bst.search(234)).toBe(null);
-  //     });
-  //
-  //     it('should maintain BST property after deletions', () => {
-  //       for (let j = 0; j < 10; ++j) {
-  //         let bst = new BST();
-  //         for (let i = 0; i < 1000; ++i) {
-  //           let key = Math.floor(Math.random() * 10000);
-  //           bst.insert({key, data: ' '});
-  //         }
-  //         bst.delete(pickNode(bst));
-  //         bst.delete(pickNode(bst));
-  //         bst.delete(pickNode(bst));
-  //         bst.delete(pickNode(bst));
-  //         expect(hasBstProp(bst._head)).toBe(true);
-  //         expect(bst._size).toBe(countBst(bst._head));
-  //       }
-  //     });
-  // });
+  describe('AVL.prototype.search(key): ', () => {
+      it('should search for and return a node if it exists', () => {
+        const bst = new AVL();
+        for (let i = 0; i < 1000; ++i) {
+          let key = Math.floor(Math.random() * 1000);
+          if (key !== 123 && key !== 321 && key !== 234) {
+            bst.insert({key, data: ' '});
+          }
+        }
+        bst.insert({key: 123, data: 'a'});
+        bst.insert({key: 321, data: 'b'});
+        bst.insert({key: 234, data: 'c'});
+
+        expect(bst.search(123).data).toBe('a');
+        expect(bst.search(321).data).toBe('b');
+        expect(bst.search(234).data).toBe('c');
+      });
+
+      it('should return null if the target node does not exist', () => {
+        const bst = new AVL();
+        for (let i = 0; i < 1000; ++i) {
+          let key = Math.floor(Math.random() * 1000);
+          if (key !== 123 && key !== 321 && key !== 234) {
+            bst.insert({key, data: ' '});
+          }
+        }
+        expect(bst.search(123)).toBe(null);
+        expect(bst.search(321)).toBe(null);
+        expect(bst.search(234)).toBe(null);
+      });
+  });
+
+  describe('AVL.prototype.delete(key): ', () => {
+      it('should delete a node from the tree', () => {
+          const bst = new AVL();
+          for (let i = 0; i < 100; ++i) {
+            let key = Math.floor(Math.random() * 10000);
+            if (key !== 123 && key !== 321 && key !== 234) {
+              bst.insert({key, data: ' '});
+            }
+          }
+          bst.insert({key: 123, data: 'a'});
+          bst.insert({key: 321, data: 'b'});
+          bst.insert({key: 234, data: 'c'});
+          expect(bst.search(123).data).toBe('a');
+          expect(bst.search(321).data).toBe('b');
+          expect(bst.search(234).data).toBe('c');
+          bst.delete(123);
+          expect(bst.search(123)).toBe(null);
+          bst.delete(321);
+          expect(bst.search(321)).toBe(null);
+          bst.delete(234);
+          expect(bst.search(234)).toBe(null);
+      });
+
+      it('should maintain AVL property after deletions', () => {
+        for (let j = 0; j < 5; ++j) {
+          let bst = new AVL();
+          for (let i = 0; i < 100; ++i) {
+            let key = Math.floor(Math.random() * 10000);
+            bst.insert({key, data: ' '});
+          }
+          expect(hasAvlProp(bst._head)).toBe(true);
+          bst.delete(pickNode(bst));
+          bst.delete(pickNode(bst));
+          bst.delete(pickNode(bst));
+          bst.delete(pickNode(bst));
+          expect(hasAvlProp(bst._head)).toBe(true);
+          expect(bst._size).toBe(countBst(bst._head));
+        }
+      });
+  });
   //
   // describe('BST.prototype.traverse: ', () => {
   //   it('should return a sorted array of all the nodes', () => {
@@ -215,7 +216,7 @@ describe('AVL class: ', () => {
 
 function pickNode(bst) {
   let node = bst._head;
-  let iter = Math.floor(Math.random()*Math.log(bst._size))
+  let iter = Math.ceil(Math.random()*Math.log(bst._size))
   let next = Math.floor(Math.random()*2) > 1 ? 'left' : 'right';
   while (node[next] != null && iter > 0) {
     next = Math.floor(Math.random()*2) > 1 ? 'left' : 'right';

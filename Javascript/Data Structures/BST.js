@@ -36,6 +36,7 @@ class BST {
           }
         } else {
           // ignore duplicate keys
+          node = null
         }
       }
     }

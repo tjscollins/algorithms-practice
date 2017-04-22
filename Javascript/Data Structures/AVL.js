@@ -48,6 +48,45 @@ class AVL extends BST {
     }
   }
 
+  delete(key, Node) {
+    if (!key && !Node) {
+      throw new Error('Must provide one of (key, Node) to AVL.prototype.delete(key, Node)')
+    }
+    
+    if (Node === undefined) {
+      // Find the relevant node
+      Node = this.search(key);
+      if (Node === null) {
+        return null; //Node does not exist
+      }
+    }
+
+    if (Node.left === null || Node.right === null) {
+      if (Node === Node.parent.left) {
+        Node.parent.left = Node.left || Node.right;
+        if (Node.parent.left !== null) {
+          Node.parent.left.parent = Node.parent;
+        }
+      } else {
+        Node.parent.right = Node.left || Node.right;
+        if (Node.parent.right !== null) {
+          Node.parent.right.parent = Node.parent;
+        }
+      }
+      this._size--;
+      this._fixAvl(Node.parent);
+      return Node;
+    } else {
+      let n = this._next(Node);
+      [n.key, Node.key] = [Node.key, n.key];
+      [n.data, Node.data] = [Node.data, n.data];
+      [n.height, Node.height] = [Node.height, n.height];
+      process.nextTick(() => {
+        this.delete(null, n);
+      });
+    }
+  }
+
   _fixAvl(node) {
     while (node != null) {
       node.setHeight();
