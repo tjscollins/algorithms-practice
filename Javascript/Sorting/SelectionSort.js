@@ -1,17 +1,25 @@
 function selectSort(array) {
-  let arr = [...array];
-  for (let i = 0; i< arr.length; ++i) {
-    let min = i;
-    for (let j = i+1; j<arr.length; ++j) {
-      if(arr[j] < arr[min]) {
-        min = j
+  const count = array.length;
+  let sortedArray = [];
+  let plucked = [];
+  for (let i = 0; i < count; i++) {
+    let min = Infinity;
+    for (let j = 0; min === Infinity; j++) {
+      if (plucked.indexOf(j) === -1) {
+        min = j;
       }
     }
-    [arr[i], arr[min]] = [arr[min], arr[i]];
+    for (let j = min; j < count; j++) {
+      if (array[j] < array[min] && plucked.indexOf(j) === -1) {
+        min = j;
+      }
+    }
+    sortedArray.push(array[min]);
+    plucked.push(min);
   }
-  return arr;
+  return sortedArray;
 }
 
 module.exports = {
-  selectSort,
+  selectSort
 };
