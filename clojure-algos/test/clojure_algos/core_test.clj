@@ -5,6 +5,18 @@
 
 (deftest select-sort-test
   (testing "Selection sort"
-    (is (=
-          (sort [5 1 4 2 3])
-          (select-sort [5 1 4 2 3])))))
+    (let [arr [5 -4 3 -2 1 0 -1 2 -3 4 -5]]
+      (is (=
+            (sort arr)
+            (select-sort arr))))
+
+    (let [arr [1]]
+      (is (=
+            (sort arr)
+            (select-sort arr))))
+            
+    (let [arr [10 10 10]]
+      (is (=
+            (sort arr)
+            (select-sort arr))))
+  ))
