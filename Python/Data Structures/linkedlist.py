@@ -6,37 +6,36 @@ class Node:
 class LinkList:
     def __init__(self):
         self.head = None
-        self.size = 0
 
-    # O(1) Time Complexity
     def insert(self, data):
-        self.size += 1
-        thisNode = self.head
-        self.head = Node(data)
-        if thisNode is not None:
-            self.head.next = thisNode
+        if self.head is None:
+            self.head = Node(data)
+        else:
+            node = Node(data)
+            node.next = self.head
+            self.head = node
 
-    # O(1) Time Complexity
     def remove(self):
-        self.size -= 1
-        self.head = self.head.next
+        if self.head is not None:
+            node = self.head
+            self.head = node.next
+            return node
+        else:
+            return None
 
-    # O(n) Time complexity
     def traverse(self):
-        output = []
-        thisNode = self.head
-        while thisNode is not None:
-            # print str(thisNode.value)
-            output.append(thisNode.value)
-            thisNode = thisNode.next
-        return output
+        out = []
+        node = self.head
+        while node is not None:
+            out.append(node.value)
+            node = node.next
+        return out
 
-    # O(n) Time Complexity
     def search(self, data):
-        thisNode = self.head
-        while thisNode is not None:
-            if thisNode.value == data:
-                return thisNode
+        node = self.head
+        while node is not None:
+            if node.value == data:
+                return node
             else:
-                thisNode = thisNode.next
+                node = node.next
         return None
